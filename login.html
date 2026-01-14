@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Solsun Admin Login</title>
+</head>
+<body style="font-family:Arial;text-align:center;padding-top:100px;">
+
+<h2>🔐 Solsun Admin Login</h2>
+
+<input id="u" placeholder="Username"><br><br>
+<input id="p" type="password" placeholder="Password"><br><br>
+
+<button onclick="login()">Login</button>
+
+<p id="msg" style="color:red;"></p>
+
+<script>
+function login(){
+    if(
+        document.getElementById("u").value=="Sulsun" &&
+        document.getElementById("p").value=="Solsun@222"
+    ){
+        window.location="admin.html";
+    }else{
+        document.getElementById("msg").innerText="Wrong Login";
+    }
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Solsun Solar Admin</title>
+<style>
+body{
+    font-family: Arial;
+    background:#f4f4f4;
+    padding:20px;
+}
+h2{
+    text-align:center;
+}
+table{
+    width:100%;
+    background:white;
+    border-collapse:collapse;
+}
+th,td{
+    padding:10px;
+    border:1px solid #ccc;
+    text-align:center;
+}
+th{
+    background:#222;
+    color:white;
+}
+button{
+    padding:6px 10px;
+    border:none;
+    cursor:pointer;
+}
+.whatsapp{
+    background:#25D366;
+    color:white;
+}
+.delete{
+    background:red;
+    color:white;
+}
+.contact{
+    background:#007bff;
+    color:white;
+}
+</style>
+</head>
+
+<body>
+
+<h2>Solsun Solar Leads</h2>
+
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Mobile</th>
+<th>Email</th>
+<th>Message</th>
+<th>Status</th>
+<th>Action</th>
+</tr>
+</thead>
+
+<tbody id="data"></tbody>
+</table>
+
+<script>
+const API = "http://localhost:5000/customers";
+
+// Load leads
+async function loadData(){
+    const res = await fetch(API);
+    const data = await res.json();
+
+    let rows = "";
+    data.forEach(item=>{
+        rows += `
+        <tr>
+            <td>${item.name}</td>
+            <td>${item.mobile}</td>
+            <td>${item.email || ""}</td>
+            <td>${item.message || ""}</td>
+            <td>${item.status}</td>
+            <td>
+                <button class="contact" onclick="markContacted('${item._id}')">Contacted</button>
+                <button class="whatsapp" onclick="openWhatsApp('${item.mobile}','${item.name}')">WhatsApp</button>
+                <button class="delete" onclick="deleteLead('${item._id}')">Delete</button>
+            </td>
+        </tr>
+        `;
+    });
+
+    document.getElementById("data").innerHTML = rows;
+}
+
+loadData();
+
+// Contacted
+async function markContacted(id){
+    await fetch(API + "/" + id, { method:"PUT" });
+    loadData();
+}
+
+// Delete
+async function deleteLead(id){
+    await fetch(API + "/" + id, { method:"DELETE" });
+    loadData();
+}
+
+// WhatsApp
+function openWhatsApp(mobile, name){
+    const msg = `Hi ${name}, Thank you for contacting Solsun Solar. We received your enquiry and will assist you shortly.`;
+    const url = `https://wa.me/91${mobile}?text=` + encodeURIComponent(msg);
+    window.open(url,"_blank");
+}
+</script>
+
+</body>
+</html>

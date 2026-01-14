@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ganesh Solar</title>
+    <style>
+        body{
+            margin:0;
+            font-family: Arial;
+        }
+        .header{
+            background:#0a3d62;
+            color:white;
+            padding:15px;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+        }
+        .logo{
+            font-size:24px;
+            font-weight:bold;
+        }
+        .menu a{
+            color:white;
+            text-decoration:none;
+            margin:15px;
+            font-size:16px;
+        }
+        .hero{
+            background:#f1f8ff;
+            padding:60px;
+            text-align:center;
+        }
+        .hero h1{
+            font-size:40px;
+            color:#0a3d62;
+        }
+        .hero p{
+            font-size:18px;
+        }
+        .btn{
+            background:#f39c12;
+            color:white;
+            padding:15px 25px;
+            text-decoration:none;
+            font-size:18px;
+            border-radius:5px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="header">
+    <div class="logo">Solsun</div>
+    <div class="menu">
+        <a href="#">Home</a>
+        <a href="#">About</a>
+        <a href="#">Solar</a>
+        <a href="#">Contact</a>
+    </div>
+</div>
+
+<div class="hero">
+    <h1>Switch to Solar & Save Money</h1>
+    <p>Get free solar consultation for your home</p>
+    <br>
+    <a class="btn" href="#">Get Free Consultation</a>
+</div>
+<div style="background:#ffffff;padding:40px;text-align:center;">
+    <h2>Get Free Solar Quote</h2>
+
+    <form id="leadForm">
+    <input id="name" type="text" placeholder="Your Name" style="padding:10px;width:250px;"><br><br>
+    <input id="mobile" type="text" placeholder="Mobile Number" style="padding:10px;width:250px;"><br><br>
+    <input id="pincode" type="text" placeholder="Pincode" style="padding:10px;width:250px;"><br><br>
+    <input id="bill" type="text" placeholder="Electricity Bill Amount" style="padding:10px;width:250px;"><br><br>
+
+    <button type="submit" style="background:#27ae60;color:white;padding:12px 25px;border:none;font-size:16px;">
+        Submit
+    </button>
+</form>
+
+<script>
+document.getElementById("leadForm").addEventListener("submit", function(e){
+    e.preventDefault();
+
+    fetch("http://localhost:5000/lead", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            name: document.getElementById("name").value,
+            mobile: document.getElementById("mobile").value,
+            pincode: document.getElementById("pincode").value,
+            bill: document.getElementById("bill").value
+        })
+    })
+    .then(res => res.json())
+    .then(data => {
+        alert("Thank you! Our team will contact you.");
+        document.getElementById("leadForm").reset();
+    });
+});
+</script>
+
+</div>
+<div style="background:#f1f8ff;padding:50px;text-align:center;">
+    <h2>Solar System Price</h2>
+
+    <table border="1" style="margin:auto;border-collapse:collapse;width:70%;background:white;">
+        <tr style="background:#0a3d62;color:white;">
+            <th style="padding:15px;">System Size</th>
+            <th>Monthly Bill</th>
+            <th>Price After Subsidy</th>
+        </tr>
+
+        <tr>
+            <td style="padding:10px;">3 kW</td>
+            <td>₹2,500 – ₹3,000</td>
+            <td>₹1,50,000</td>
+        </tr>
+
+        <tr>
+            <td style="padding:10px;">4 kW</td>
+            <td>₹3,000 – ₹4,000</td>
+            <td>₹2,00,000</td>
+        </tr>
+
+        <tr>
+            <td style="padding:10px;">5 kW</td>
+            <td>₹4,000 – ₹5,000</td>
+            <td>₹2,50,000</td>
+        </tr>
+    </table>
+<div style="padding:60px;text-align:center;">
+    <h2>Why Choose Solsun?</h2>
+
+    <div style="display:flex;justify-content:center;gap:30px;margin-top:40px;">
+
+        <div style="width:250px;padding:20px;border:1px solid #ddd;">
+            <h3>25 Years Warranty</h3>
+            <p>We provide long-term warranty on solar panels.</p>
+        </div>
+
+        <div style="width:250px;padding:20px;border:1px solid #ddd;">
+            <h3>Easy EMI</h3>
+            <p>Install solar with zero down payment.</p>
+        </div>
+
+        <div style="width:250px;padding:20px;border:1px solid #ddd;">
+            <h3>Govt Subsidy</h3>
+            <p>Get subsidy up to 40% from government.</p>
+        </div>
+
+    </div>
+</div>
+<div style="background:#f1f8ff;padding:60px;text-align:center;">
+    <h2>What Our Customers Say</h2>
+
+    <div style="display:flex;justify-content:center;gap:30px;margin-top:30px;">
+
+        <div style="width:300px;background:white;padding:20px;">
+            <p>“My electricity bill reduced by 80%. Very happy with Solsun!”</p>
+            <strong>- Rahul, Pune</strong>
+        </div>
+
+        <div style="width:300px;background:white;padding:20px;">
+            <p>“Installation was fast and EMI option helped a lot.”</p>
+            <strong>- Sneha, Nashik</strong>
+        </div>
+
+    </div>
+</div>
+<div style="background:#0a3d62;color:white;padding:40px;text-align:center;">
+    <h2>Solsun Solar</h2>
+    <p>India's trusted solar company</p>
+
+    <p>📍 Nashik, Maharashtra</p>
+    <p>📞 +91 9922925583</p>
+    <p>✉ solsun@gmail.com</p>
+
+    <p style="margin-top:20px;">© 2026 Solsun. All Rights Reserved.</p>
+</div>
+
+
+</div>
+
+
+</body>
+</html>
